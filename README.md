@@ -19,3 +19,8 @@ See the [Commander directory](./commander) for more information.
 ## Beam Infrastructure
 
 The [Infrastructure directory](./infrastructure) contains a collection of [Terraform](https://terraform.io) templates to be used as examples on how to create a compatible Beam architecture.
+
+
+#### Maintainer
+
+[Graham Krizek](https://github.com/gkrizek)
