@@ -17,8 +17,10 @@ setup(
     packages=["beam"],
     py_modules=['beam'],
     install_requires=[
+        "argparse",
         "boto3",
-        "requests"
+        "requests",
+        "toml"
     ],
     entry_points={
         "console_scripts": ['beam = beam.index:main']

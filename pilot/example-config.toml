@@ -1,0 +1,31 @@
+# This is a TOML config file.
+# For more information, see https://github.com/toml-lang/toml
+
+##### main base config options #####
+
+# Beam Commander Lambda function name
+commander = "beam-commander"
+
+# Beam Commander S3 Bucket
+bucket = "beam-commander"
+
+# Type of node currently running
+node_type = "validator" || "sentry"
+
+# Turn on/off alerts for system events
+alerting = true
+
+# Turn on/off gaiad configuration management by Beam.
+config = true
+
+# Validator specific options
+[validator]
+
+# Turn on/off automatic voting
+voting = true
+
+# Sentry specific options
+[sentry]
+
+# Turn on/off self replacement if under DDoS attack
+suicide = true
