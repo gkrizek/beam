@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 import click
+import time
 from init import initialization
 from status import status_check
+from start import run
 from .__init__ import __version__
+
+# Constants
+CHECK_INTERVAL = 3
 
 
 @click.group()
@@ -21,11 +26,13 @@ def init(force):
 @main.command('start', short_help="start the agent")
 @click.option('--config', default="~/.beam/config.toml", help="Configuration file to use. [Default is ~/.beam/config.toml]", metavar='<FILE>')
 def start(config):
-    print(config)
-    import time
+    click.echo("")
+    click.echo("Starting Beam Pilot - %s" %(time.asctime(time.localtime(time.time()))))
+    click.echo("")
     while True:
-        click.echo('start command')
-        time.sleep(2)
+        run(config)
+        time.sleep(CHECK_INTERVAL)
+
 
 @main.command('status', short_help="check agent status")
 def status():
