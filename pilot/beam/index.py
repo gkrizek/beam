@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import click
 from init import initialization
+from status import status_check
 from .__init__ import __version__
 
 
@@ -21,12 +22,14 @@ def init(force):
 @click.option('--config', default="~/.beam/config.toml", help="Configuration file to use. [Default is ~/.beam/config.toml]", metavar='<FILE>')
 def start(config):
     print(config)
-    click.echo('start command')
-
+    import time
+    while True:
+        click.echo('start command')
+        time.sleep(2)
 
 @main.command('status', short_help="check agent status")
 def status():
-    click.echo('status command')
+    status_check()
 
 
 @main.command('version', short_help="check agent version")
