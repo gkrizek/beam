@@ -1,4 +1,5 @@
 from setuptools import setup
+from beam import __version__
 
 
 def readme():
@@ -8,7 +9,7 @@ def readme():
 
 setup(
     name="beam",
-    version="0.1.0",
+    version=__version__,
     description="Beam Pilot",
     long_description=readme(),
     author="Graham Krizek",
@@ -17,8 +18,8 @@ setup(
     packages=["beam"],
     py_modules=['beam'],
     install_requires=[
-        "argparse",
         "boto3",
+        "click",
         "requests",
         "toml"
     ],

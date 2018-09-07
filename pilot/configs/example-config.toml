@@ -10,7 +10,7 @@ commander = "beam-commander"
 bucket = "beam-commander"
 
 # Type of node currently running
-node_type = "validator" || "sentry"
+node_type = "sentry"
 
 # Turn on/off alerts for system events
 alerting = true

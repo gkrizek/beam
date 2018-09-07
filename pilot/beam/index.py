@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 import click
+from init import initialization
+from .__init__ import __version__
 
 
 @click.group()
@@ -10,8 +12,9 @@ def main():
 
 
 @main.command('init', short_help="initialize")
-def init():
-    click.echo('init command')
+@click.option('--force', default=False, is_flag=True, help="If beam directory or config file exists, overwrite it.")
+def init(force):
+    initialization(force)
 
 
 @main.command('start', short_help="start the agent")
@@ -28,4 +31,6 @@ def status():
 
 @main.command('version', short_help="check agent version")
 def version():
-    click.echo('version command')
+    click.echo("")
+    click.echo("Beam Pilot v%s" %(__version__))
+    click.echo("")
