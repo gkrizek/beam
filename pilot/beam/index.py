@@ -1,21 +1,34 @@
-#!/usr/bin/env python
-import argparse
-from .utils import RunArgs
+#!/usr/bin/env python3
+import click
 
 
-def beam(object):
-    '''
-    #parser.add_argument("initialize",help="Initialize Beam Pilot")
-    #parser.add_argument("start",help="Run Beam Pilot",action="store_true")
-    #parser.add_argument("status",help="Check Status of Beam Pilot",action="store_true")
-    #parser.add_argument("version",help="Version of Beam Pilot",action="store_true")
-    '''
-    return
-
+@click.group()
 def main():
-    parser=argparse.ArgumentParser(description="Beam Pilot - Cosmos Validator Manager")
-    parser.add_argument("command",help="Beam Pilot command")
-    parser.add_argument("--config",help="Configuration file to use. [Default is ~/.beam/config.toml]",dest="config")
-    parser.set_defaults(func=beam)
-    args=parser.parse_args()
-    print(args.func(args))
+    """
+    Beam Pilot
+    """
+
+@main.command('init', short_help="Initialize Beam Pilot")
+@main.command('start', short_help="Run Beam Pilot")
+@main.command('status', short_help="Check status of Beam Pilot")
+@main.command('version', short_help="Check version of Beam Pilot")
+@click.option('--config', help="Configuration file to use. [Default is ~/.beam/config.toml]")
+
+def init(config):
+    print(config)
+    click.echo('init command')
+
+
+def start(config):
+    print(config)
+    click.echo('start command')
+
+
+def status(config):
+    print(config)
+    click.echo('status command')
+
+
+def version(config):
+    print(config)
+    click.echo('version command')
