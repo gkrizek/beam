@@ -28,6 +28,11 @@ def init(force):
 
 @main.command('start', short_help="start the agent")
 @click.option('--config', default="~/.beam/config.toml", help="configuration file to use. [default is ~/.beam/config.toml]", metavar='<FILE>')
+'''
+I should add a `--no-update` flag to this command as well to disable pulling a new gaiad config from the commander function.
+By default, every time you run `beam start` it will delete you gaiad config and replace it with what the commander function says.
+It won't update the gaiad config if either the `--no-update` or `config = false` in the ~/.beam/config.toml file
+'''
 def start(config):
     config_exists = check_config()
     if not config_exists:

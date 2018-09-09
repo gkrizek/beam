@@ -24,3 +24,22 @@ The [Infrastructure directory](./infrastructure) contains a collection of [Terra
 #### Maintainer
 
 [Graham Krizek](https://github.com/gkrizek)
+
+
+```
+NOTES:
+
+The pilot command line tool can ran by itself (no commander lambda function) or with a connection to a commander lambda function.
+
+When a server starts up, it will first run `beam init` and the `beam start`. This will create a '~/.beam/node.toml' file and start beam. It will then check in to the commander lambda function (if enabled) and get it's gaiad config. The gaiad data directory should already by present because of a mounted EBS volume from a snapshot. Then it starts gaiad and monitors it.
+
+For Sentry servers, the only other time it communicate with the commander server is if it posts an event to it, such as a voting alert, ddos attach, etc.
+
+For Validator servers,... figure out what to do about validators
+
+Nodes know about each other by making a request directly to one another with the gaiad RPC endpoints. Commander is also always updating the template gaiad config so it's recent.
+# How do nodes know the ips of the others? should I keep an updated list of them on the server in the node.toml file? Should I just make a lambda call to request them?
+
+
+
+```
