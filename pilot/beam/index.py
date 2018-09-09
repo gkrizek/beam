@@ -2,10 +2,11 @@
 import click
 import time
 from sys import exit
-from init import initialization
-from status import status_check
-from start import run
-from utils import check_config
+from .init import initialization
+from .reset import reset_beam
+from .status import status_check
+from .start import run
+from .utils import check_config
 from .__init__ import __version__
 
 # Constants
@@ -20,13 +21,13 @@ def main():
 
 
 @main.command('init', short_help="initialize")
-@click.option('--force', default=False, is_flag=True, help="If beam directory or config file exists, overwrite it.")
+@click.option('--force', default=False, is_flag=True, help="if beam directory or config file exists, overwrite it.")
 def init(force):
     initialization(force)
 
 
 @main.command('start', short_help="start the agent")
-@click.option('--config', default="~/.beam/config.toml", help="Configuration file to use. [Default is ~/.beam/config.toml]", metavar='<FILE>')
+@click.option('--config', default="~/.beam/config.toml", help="configuration file to use. [default is ~/.beam/config.toml]", metavar='<FILE>')
 def start(config):
     config_exists = check_config()
     if not config_exists:
@@ -48,6 +49,13 @@ def start(config):
 def status():
     status_check()
 
+
+@main.command('reset', short_help="reset the Beam Pilot node")
+def reset():
+    reset_beam()
+    click.echo("")
+    click.echo("Node reset")
+    click.echo("")
 
 @main.command('version', short_help="check agent version")
 def version():

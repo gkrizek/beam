@@ -2,7 +2,7 @@ import click
 import os
 import toml
 from sys import exit
-from .commands.commander import commander_checkin
+from .commands.commander import commander_checkin, get_orders
 from .commands.network import get_local_ip, get_public_ip
 from .commands.utils import get_moniker
 
@@ -10,7 +10,7 @@ from .commands.utils import get_moniker
 def run(config):
     '''
     First I need to check if there is a file called `~/.beam/node.toml`. This is the beam created information file.
-    If it doesn't exist, create it. It will make the necessary requests and commands to fill in all variablesself.
+    If it doesn't exist, create it. It will make the necessary requests and commands to fill in all variables.
     Also, if this file doesn't exist, we need to make a Lambda call to tell Beam Commander that I just started up.
     Then continue with the run...
     If the node.toml file exists, then we skip initialization and run the checks.
@@ -28,6 +28,11 @@ def run(config):
     if not os.path.exists(node_config):
         click.echo("No node file found. Creating one now...")
         click.echo("")
+
+        '''
+        Maybe I should split this into two seperate functions depending on if it's a validator or if it's a Sentry.
+        Their configs and checks are very different.. so maybe splitting them up is best.
+        '''
         # gather necessary information
         config_raw = open(beam_config, "r").read()
         config_file = toml.loads(config_raw)
@@ -63,5 +68,7 @@ def run(config):
         click.echo("")
 
     click.echo("Now running checks...")
+
+    orders = get_orders()
 
     return
