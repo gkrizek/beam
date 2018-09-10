@@ -6,7 +6,7 @@ from .init import initialization
 from .reset import reset_beam
 from .status import status_check
 from .start import run
-from .utils import check_config
+from .utils import config_exists
 from .__init__ import __version__
 
 # Constants
@@ -28,14 +28,10 @@ def init(force):
 
 @main.command('start', short_help="start the agent")
 @click.option('--config', default="~/.beam/config.toml", help="configuration file to use. [default is ~/.beam/config.toml]", metavar='<FILE>')
-'''
-I should add a `--no-update` flag to this command as well to disable pulling a new gaiad config from the commander function.
-By default, every time you run `beam start` it will delete you gaiad config and replace it with what the commander function says.
-It won't update the gaiad config if either the `--no-update` or `config = false` in the ~/.beam/config.toml file
-'''
-def start(config):
-    config_exists = check_config()
-    if not config_exists:
+@click.option('--noupdate', default=False, is_flag=True, help="disable gaiad configuration file update from commander.")
+def start(config, noupdate):
+    exists = config_exists()
+    if not exists:
         click.echo("")
         click.secho("Error: No configuration file found. (~/.beam/config.toml)", fg="red", bold=True)
         click.echo("")
@@ -46,7 +42,7 @@ def start(config):
     click.echo("Starting Beam Pilot - %s" %(time.asctime(time.localtime(time.time()))))
     click.echo("")
     while True:
-        run(config)
+        run(config, noupdate)
         time.sleep(CHECK_INTERVAL)
 
 

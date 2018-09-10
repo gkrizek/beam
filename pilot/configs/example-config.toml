@@ -3,12 +3,6 @@
 
 ##### main base config options #####
 
-# Beam Commander Lambda function name
-commander = "beam-commander"
-
-# Beam Commander S3 Bucket
-bucket = "beam-commander"
-
 # Type of node currently running
 node_type = "sentry"
 
@@ -16,7 +10,19 @@ node_type = "sentry"
 alerting = true
 
 # Turn on/off gaiad configuration management by Beam.
-config = true
+gaiad_config = true
+
+# Beam Commander specific options
+[commander]
+
+# Turn on/off commander communication
+enable = true
+
+# Beam Commander Lambda function name
+commander = "beam-commander"
+
+# Beam Commander S3 Bucket
+bucket = "beam-commander"
 
 # Validator specific options
 [validator]

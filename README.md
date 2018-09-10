@@ -35,11 +35,24 @@ When a server starts up, it will first run `beam init` and the `beam start`. Thi
 
 For Sentry servers, the only other time it communicate with the commander server is if it posts an event to it, such as a voting alert, ddos attach, etc.
 
-For Validator servers,... figure out what to do about validators
+For Validator servers,... figure out what to do about validators, but they will have some sort of health check running on them. If the checks fail, we trigger beam to start the next secondary validator. This means that the validator beam programs will need to check into the commander function every X seconds to see if there is something to do.
 
 Nodes know about each other by making a request directly to one another with the gaiad RPC endpoints. Commander is also always updating the template gaiad config so it's recent.
 # How do nodes know the ips of the others? should I keep an updated list of them on the server in the node.toml file? Should I just make a lambda call to request them?
 
 
 
+# Unknowns
+
+- Validator Health Checks
+- How to do alerting. In lambda? On server? What service?
+
+
+'''
+first check how many unbonded steaks you have... with `gaiacli account <your_cosmosaccaddr...>`
+
+then delegate to yourself with...
+
+gaiacli stake delegate --amount=10steak  --address-delegator=<your_cosmosaccaddr...>  --address-validator=<your_cosmosaccaddr...> --from=<your_monikor>  --chain-id=gaia-8001 --gas=20000000 --async=true
+'''
 ```

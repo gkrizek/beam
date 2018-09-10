@@ -4,10 +4,10 @@ import toml
 from sys import exit
 from .commands.commander import commander_checkin, get_orders
 from .commands.network import get_local_ip, get_public_ip
-from .commands.utils import get_moniker
+from .commands.utils import get_moniker, check_config
 
 
-def run(config):
+def run(config, noupdate):
     '''
     First I need to check if there is a file called `~/.beam/node.toml`. This is the beam created information file.
     If it doesn't exist, create it. It will make the necessary requests and commands to fill in all variables.
@@ -25,6 +25,7 @@ def run(config):
     '''
     node_config = os.path.expanduser('~/.beam/node.toml')
     beam_config = os.path.expanduser('~/.beam/config.toml')
+    check_config()
     if not os.path.exists(node_config):
         click.echo("No node file found. Creating one now...")
         click.echo("")
