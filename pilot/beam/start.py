@@ -4,7 +4,8 @@ import toml
 from sys import exit
 from .commands.commander import commander_checkin, get_orders
 from .commands.network import get_local_ip, get_public_ip
-from .commands.utils import get_moniker, check_config
+from .commands.utils import get_moniker
+from .utils import check_config
 
 
 def run(config, noupdate):
