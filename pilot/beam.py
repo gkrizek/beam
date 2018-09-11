@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from beam.index import main
+from beam.index import beam
 
 if __name__ == '__main__':
-    main()
+    beam()

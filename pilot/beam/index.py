@@ -14,19 +14,27 @@ CHECK_INTERVAL = 3
 
 
 @click.group()
-def main():
+def beam():
     """
     Beam Pilot - Cosmos Validator Manager
+
+    \b
+    ______ _____  ___  ___  ___
+    | ___ \  ___|/ _ \ |  \/  |
+    | |_/ / |__ / /_\ \| .  . |
+    | ___ \  __||  _  || |\/| |
+    | |_/ / |___| | | || |  | |
+    \____/\____/\_| |_/\_|  |_/
     """
 
 
-@main.command('init', short_help="initialize")
+@beam.command('init', short_help="initialize")
 @click.option('--force', default=False, is_flag=True, help="if beam directory or config file exists, overwrite it.")
 def init(force):
     initialization(force)
 
 
-@main.command('start', short_help="start the agent")
+@beam.command('start', short_help="start the agent")
 @click.option('--config', default="~/.beam/config.toml", help="configuration file to use. [default is ~/.beam/config.toml]", metavar='<FILE>')
 @click.option('--noupdate', default=False, is_flag=True, help="disable gaiad configuration file update from commander.")
 def start(config, noupdate):
@@ -46,19 +54,19 @@ def start(config, noupdate):
         time.sleep(CHECK_INTERVAL)
 
 
-@main.command('status', short_help="check agent status")
+@beam.command('status', short_help="check agent status")
 def status():
     status_check()
 
 
-@main.command('reset', short_help="reset the Beam Pilot node")
+@beam.command('reset', short_help="reset the Beam Pilot node")
 def reset():
     reset_beam()
     click.echo("")
     click.echo("Node reset")
     click.echo("")
 
-@main.command('version', short_help="check agent version")
+@beam.command('version', short_help="check agent version")
 def version():
     click.echo("")
     click.echo("Beam Pilot v%s" %(__version__))
