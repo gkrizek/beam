@@ -37,16 +37,37 @@ def check_config():
     except toml.TomlDecodeError as e:
         config_error("Error Parsing toml: \n\n%s" % (str(e)))
     try:
-        config['node_type']
-        config['alerting']
-        config['gaiad_config']
-        config['commander']['enabled']
-        config['commander']['commander']
-        config['commander']['bucket']
-        config['node_type']
+        node_type       = config['node_type'].to_lower()
+        alerting        = config['alerting']
+        gaiad_config    = config['gaiad_config']
+        enabled         = config['commander']['enabled']
+        commander       = config['commander']['commander'].to_lower()
+        bucket          = config['commander']['bucket'].to_lower()
+
+        if type(alerting) is not bool or \
+            type(gaiad_config) is not bool or \
+            type(enabled) is not bool:
+                config['force_key_error']
+
     except KeyError as e:
         config_error("Error: Configuration File is invalid. Check syntax and completeness.")
-    return
+        
+    if node_type is 'sentry':
+        try:
+            suicide = config['sentry']['suicide']
+            if type(suicide) is not bool:
+                config['force_key_error']
+        except KeyError as e:
+            config_error("Error: Configuration File is invalid. Check syntax and completeness.")
+
+    if node_type is 'validator':
+        try:
+            voting = config['validator']['voting']
+            if type(voting) is not bool:
+                config['force_key_error']
+        except KeyError as e:
+            config_error("Error: Configuration File is invalid. Check syntax and completeness.")
+    return 'Configuration is valid'
 
 
 def config_exists():

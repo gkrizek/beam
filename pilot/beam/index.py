@@ -16,12 +16,13 @@ CHECK_INTERVAL = 3
 @click.group()
 def beam():
     """
-    Beam Pilot - Cosmos Validator Manager
-
     \b
      _ )  __|    \     \  | 
      _ \  _|    _ \   |\/ | 
     ___/ ___| _/  _\ _|  _| 
+
+
+    Beam Pilot - Cosmos Validator Manager
     """
 
 
