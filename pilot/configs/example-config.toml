@@ -9,9 +9,6 @@ node_type = "sentry"
 # Turn on/off alerts for system events
 alerting = true
 
-# Turn on/off gaiad configuration management by Beam.
-gaiad_config = true
-
 # Beam Commander specific options
 [commander]
 
@@ -30,8 +27,20 @@ bucket = "beam-commander"
 # Turn on/off automatic voting
 voting = true
 
+# Turn on/off steak automatic bonding
+bonding = true
+
 # Sentry specific options
 [sentry]
 
 # Turn on/off self replacement if under DDoS attack
 suicide = true
+
+# Gaiad Specifc Options
+[gaiad]
+
+# Turn on/off Gaiad configuration management
+enable = true
+
+# Gaiad directory
+directory = "~/.gaiad"

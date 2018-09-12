@@ -2,13 +2,16 @@ import click
 import os
 import toml
 from sys import exit
-from .commands.commander import commander_checkin, get_orders
+from .commands.commander import initialize
+from .commands.gaiad import check_gaiad, start_gaiad, get_unbonded_steak, bond_steak
 from .commands.network import get_local_ip, get_public_ip
 from .commands.utils import get_moniker
-from .utils import check_config
+from .utils import check_config, get_config
 
 
 def run(config, noupdate):
+
+    FIRST_RUN = True
     '''
     First I need to check if there is a file called `~/.beam/node.toml`. This is the beam created information file.
     If it doesn't exist, create it. It will make the necessary requests and commands to fill in all variables.
@@ -27,14 +30,10 @@ def run(config, noupdate):
     node_config = os.path.expanduser('~/.beam/node.toml')
     beam_config = os.path.expanduser('~/.beam/config.toml')
     check_config()
+    configuration = get_config()
     if not os.path.exists(node_config):
         click.echo("No node file found. Creating one now...")
         click.echo("")
-
-        '''
-        Maybe I should split this into two seperate functions depending on if it's a validator or if it's a Sentry.
-        Their configs and checks are very different.. so maybe splitting them up is best.
-        '''
         # gather necessary information
         config_raw = open(beam_config, "r").read()
         config_file = toml.loads(config_raw)
@@ -46,15 +45,12 @@ def run(config, noupdate):
         click.echo("Public IP: %s" %(public_ip))
         moniker = get_moniker(local_ip,node_type)
         click.echo("Gaiad Moniker: %s" %(moniker))
-        checkin = commander_checkin(local_ip,public_ip,moniker,node_type)
-        click.echo("Commander ID: %s" %(checkin))
 
         data = {}
         data['node_type'] = node_type
         data['local_ip'] = local_ip
         data['public_ip'] = public_ip
         data['moniker'] = moniker
-        data['commander_id'] = checkin
         # write node config file
         try:
             formatted_data = toml.dumps(data).rstrip()
@@ -69,8 +65,25 @@ def run(config, noupdate):
         click.echo("Node file successfully created. Continuing...")
         click.echo("")
 
-    click.echo("Now running checks...")
+    if configuration['gaiad']['enable'] and \
+       configuration['commander']['enable'] and \
+       FIRST_RUN:
+        click.echo("Checking into commander....")
+        initialize(local_ip,public_ip,moniker,node_type)
+        start_gaiad()
 
-    orders = get_orders()
+        FIRST_RUN = False
+
+
+    click.echo("Now running checks...")
+    check_gaiad()
+    if configuration['node_type'] is 'validator':
+        steak = get_unbonded_steak()
+        if steak > 0:
+            click.echo("There are %s unbonded steak. Bonding now..." %(steak))
+            bond_steak(steak)
+    else if configuration['node_type'] is 'sentry':
+
+        print("sentry")
 
     return
