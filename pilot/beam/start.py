@@ -82,7 +82,7 @@ def run(config, noupdate):
         if steak > 0:
             click.echo("There are %s unbonded steak. Bonding now..." %(steak))
             bond_steak(steak)
-    else if configuration['node_type'] is 'sentry':
+    elif configuration['node_type'] is 'sentry':
 
         print("sentry")
 
