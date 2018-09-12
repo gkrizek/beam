@@ -1,9 +1,18 @@
+import subprocess
+import click
+import re
+from sys import exit
 from .system import execute
 
 
 def check_gaiad():
-
-    return
+    # TODO: Maybe convert this to gaiad status and check it's return code
+    returnprocess = False
+    s = subprocess.Popen(["ps", "ax"],stdout=subprocess.PIPE)
+    for x in s.stdout:
+      if re.search('(.*)gaiad(.*)start(.*)', x):
+          return True
+    return False
     
 
 def restart_gaiad():

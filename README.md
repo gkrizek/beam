@@ -48,6 +48,7 @@ Nodes know about each other by making a request directly to one another with the
 
 - Validator Health Checks
 - How to do alerting. In lambda? On server? What service?
+- Probably need health checks for all sentry/validators.
 
 
 '''

@@ -1,7 +1,6 @@
 import subprocess
 import click
-import re
-from sys import exit
+from .commands.system import check_beam
 
 
 def running():
@@ -13,7 +12,7 @@ def running():
 
 def stopped():
     click.echo("")
-    click.echo("Beam Pilot is not running")
+    click.echo("Beam Pilot is stopped")
     click.echo("")
     return
 
@@ -26,16 +25,13 @@ def error():
 
 
 def status_check():
-    returnprocess = False
     try:
-        s = subprocess.Popen(["ps", "ax"],stdout=subprocess.PIPE)
-    except Exception:
+        beam_running = check_beam()
+        if beam_running:
+            running()
+        else:
+            stopped()
+    except Exception as e:
+        print(e)
         error()
-    for x in s.stdout:
-      if re.search('(.*)beam(.*)start(.*)', x):
-          returnprocess = True
-    if returnprocess == False:
-      stopped()
-    if returnprocess == True:
-      running()
     return

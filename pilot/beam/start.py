@@ -54,18 +54,23 @@ def run(config, noupdate, firstrun):
     if firstrun and \
        configuration['gaiad']['enable'] and \
        configuration['commander']['enable']:
-        click.echo("Checking into commander....")
-        local_ip = node_configuration['local_ip']
-        public_ip = node_configuration['public_ip']
-        moniker = node_configuration['moniker']
-        node_type = node_configuration['node_type']
-        initialize(local_ip,public_ip,moniker,node_type)
+            click.echo("Getting gaiad config from Commander...")
+            local_ip = node_configuration['local_ip']
+            public_ip = node_configuration['public_ip']
+            moniker = node_configuration['moniker']
+            node_type = node_configuration['node_type']
+            initialize(local_ip,public_ip,moniker,node_type)
+            start_gaiad()
+
+    gaiad_running = check_gaiad()
+    if gaiad_running is False and \
+       configuration['gaiad']['enable']:
+       # TODO: Do I need to alert that it's not running?
+       # Monitor consistent failures to start
+        click.echo("gaiad appears to be stopped. Starting gaiad...")
         start_gaiad()
 
 
-
-    click.echo("Now running checks...")
-    check_gaiad()
     if configuration['node_type'] is 'validator':
 
         if configuration['validator']['bonding']:
@@ -85,6 +90,7 @@ def run(config, noupdate, firstrun):
 
     elif configuration['node_type'] is 'sentry':
 
+        
         print("sentry")
 
     return
