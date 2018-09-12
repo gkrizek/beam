@@ -1,6 +1,6 @@
 # Beam
 
-![beam-logo.png]
+![beam-logo.png](beam-logo.png)
 
 Beam is a management tool for running a [Cosmos](https://cosmos.network) Validator. Beam enables you to run a highly available and secure Validator. It is designed to be used with a transient environment.
 
