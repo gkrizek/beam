@@ -22,7 +22,7 @@ def beam():
     ___/ ___| _/  _\ _|  _| 
 
 
-    Beam Pilot - Cosmos Validator Manager
+    Beam Pilot - Cosmos Infrastructure Manager
     """
 
 
@@ -53,6 +53,7 @@ def start(config, noupdate):
         time.sleep(CHECK_INTERVAL)
         firstrun = False
 
+
 @beam.command('status', short_help="check agent status")
 def status():
     status_check()
@@ -64,6 +65,7 @@ def reset():
     click.echo("")
     click.echo("Node reset")
     click.echo("")
+
 
 @beam.command('version', short_help="check agent version")
 def version():
