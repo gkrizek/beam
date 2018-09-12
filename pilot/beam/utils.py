@@ -95,3 +95,19 @@ def get_config():
         return config
     else:
         return 'configuration file not found'
+
+
+def get_node():
+    node_config = os.path.expanduser('~/.beam/node.toml')
+    if os.path.exists(node_config):
+        try:
+            config_raw = open(node_config, "r").read()
+        except OSError as e:
+            config_error("Error: %s - %s." % (e.filename, e.strerror))
+        try:
+            config = toml.loads(config_raw)
+        except toml.TomlDecodeError as e:
+            config_error("Error Parsing toml: \n\n%s" % (str(e)))
+        return config
+    else:
+        return 'configuration file not found'

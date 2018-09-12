@@ -47,10 +47,11 @@ def start(config, noupdate):
     click.echo("")
     click.echo("Starting Beam Pilot - %s" %(time.asctime(time.localtime(time.time()))))
     click.echo("")
+    firstrun = True
     while True:
-        run(config, noupdate)
+        run(config, noupdate, firstrun)
         time.sleep(CHECK_INTERVAL)
-
+        firstrun = False
 
 @beam.command('status', short_help="check agent status")
 def status():

@@ -5,28 +5,13 @@ from sys import exit
 from .commands.commander import initialize
 from .commands.gaiad import check_gaiad, start_gaiad, get_unbonded_steak, bond_steak
 from .commands.network import get_local_ip, get_public_ip
+from .commands.voting import get_new_votes, voting_alert
 from .commands.utils import get_moniker
-from .utils import check_config, get_config
+from .utils import check_config, get_config, get_node
 
 
-def run(config, noupdate):
+def run(config, noupdate, firstrun):
 
-    FIRST_RUN = True
-    '''
-    First I need to check if there is a file called `~/.beam/node.toml`. This is the beam created information file.
-    If it doesn't exist, create it. It will make the necessary requests and commands to fill in all variables.
-    Also, if this file doesn't exist, we need to make a Lambda call to tell Beam Commander that I just started up.
-    Then continue with the run...
-    If the node.toml file exists, then we skip initialization and run the checks.
-
-    It will first make a call to Beam Commander to see if there is anything new to do.
-    If there is, execute the change and reload the change.
-
-    If it's a validator, Then check if there are unbonded steaks in account. If so bond them
-    If it's a validator, check if any new votes are available. If so, alert on them.
-    if the proposal is less then 2 minutes away from expring, do an auto-vote if configured to do so.
-    If Sentry, Check is under DDoS attack. If so, tell Beam Commander about it.
-    '''
     node_config = os.path.expanduser('~/.beam/node.toml')
     beam_config = os.path.expanduser('~/.beam/config.toml')
     check_config()
@@ -65,23 +50,39 @@ def run(config, noupdate):
         click.echo("Node file successfully created. Continuing...")
         click.echo("")
 
-    if configuration['gaiad']['enable'] and \
-       configuration['commander']['enable'] and \
-       FIRST_RUN:
+    node_configuration = get_node()
+    if firstrun and \
+       configuration['gaiad']['enable'] and \
+       configuration['commander']['enable']:
         click.echo("Checking into commander....")
+        local_ip = node_configuration['local_ip']
+        public_ip = node_configuration['public_ip']
+        moniker = node_configuration['moniker']
+        node_type = node_configuration['node_type']
         initialize(local_ip,public_ip,moniker,node_type)
         start_gaiad()
 
-        FIRST_RUN = False
 
 
     click.echo("Now running checks...")
     check_gaiad()
     if configuration['node_type'] is 'validator':
-        steak = get_unbonded_steak()
-        if steak > 0:
-            click.echo("There are %s unbonded steak. Bonding now..." %(steak))
-            bond_steak(steak)
+
+        if configuration['validator']['bonding']:
+            steak = get_unbonded_steak()
+            if steak > 0:
+                click.echo("There are %s unbonded steak. Bonding now..." %(steak))
+                bond_steak(steak)
+
+        if configuration['validator']['voting']:
+            votes = get_new_votes()
+            if votes['new'] and configuration['alerting']:
+                click.echo("New votes found. Alerting...")
+                # TODO: Need to figure out a way to only notify of the proposal once.
+                # Don't alert every time this runs.
+                # Also need to find out how long until the proposal expires and do an auto-vote right before
+                voting_alert()
+
     elif configuration['node_type'] is 'sentry':
 
         print("sentry")
