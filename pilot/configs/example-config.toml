@@ -24,11 +24,17 @@ bucket = "beam-commander"
 # Validator specific options
 [validator]
 
+# Set whether this Validator is primary or a stand by
+primary = true
+
 # Turn on/off automatic voting
 voting = true
 
 # Turn on/off steak automatic bonding
 bonding = true
+
+# Cosmos address
+address = "abc1234basd"
 
 # Sentry specific options
 [sentry]

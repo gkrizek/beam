@@ -2,9 +2,9 @@
 
 ![beam-logo.png](beam-logo.png)
 
-Beam is a management tool for running a [Cosmos](https://cosmos.network) Validator. Beam enables you to run a highly available and secure Validator. It is designed to be used with a transient environment.
+Beam is a management tool for running a [Cosmos](https://cosmos.network) Validators Architecture. Beam enables you to run a highly available and secure Validator. It is designed to be used with a [transient environment](commander/README.md#transient).
 
-While Pilot can be installed in any cloud, Commander is written to only be ran in AWS Lambda. Therefore, there is a requirement that this tool only be ran in AWS.
+_While Pilot can be installed in any cloud, Commander is written to only be ran in AWS Lambda. Therefore, there is a requirement that this tool only be ran in AWS._
 
 ## Beam Pilot
 
@@ -49,6 +49,8 @@ Nodes know about each other by making a request directly to one another with the
 - Validator Health Checks
 - How to do alerting. In lambda? On server? What service?
 - Probably need health checks for all sentry/validators.
+
+## Maybe what I can do for health checks is to have a list of nodes in S3 for the commander to access. Every X seconds, a Lambda function makes an HTTP request to all the nodes. If one doesn't repond, handle it appropriately. This would require creating an HTTP agent in the beam pilot.  Also, when a new server is spun up, part of initialization would be to tell Commander its IP address and it gets added to the node list. If a server doesn't respond, then terminate it, remove it from the list, and replace it.
 
 
 '''
