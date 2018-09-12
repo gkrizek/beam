@@ -35,7 +35,8 @@ def init(force):
 @beam.command('start', short_help="start the agent")
 @click.option('--config', default="~/.beam/config.toml", help="configuration file to use. [default is ~/.beam/config.toml]", metavar='<FILE>')
 @click.option('--noupdate', default=False, is_flag=True, help="disable gaiad configuration file update from commander.")
-def start(config, noupdate):
+@click.option('--port', default=9393, help="port to listen on", metavar='<PORT>')
+def start(config, noupdate, port):
     exists = config_exists()
     if not exists:
         click.echo("")
