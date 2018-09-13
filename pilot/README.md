@@ -1,5 +1,4 @@
-# Beam Pilot
-
+![beam-pilot-logo.png](beam-pilot-logo.png)
 
 
 ## Features
