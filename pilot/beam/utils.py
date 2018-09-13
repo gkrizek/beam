@@ -26,6 +26,11 @@ def is_string(key,value):
 
 
 def check_config():
+    '''
+    missing additions:
+    - port
+    - validator-primary
+    '''
     beam_config = os.path.expanduser('~/.beam/config.toml')
     try:
         config_raw = open(beam_config, "r").read()

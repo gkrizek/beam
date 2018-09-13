@@ -70,8 +70,7 @@ def run(config, noupdate, firstrun):
         click.echo("gaiad appears to be stopped. Starting gaiad...")
         start_gaiad()
 
-
-    if configuration['node_type'] is 'validator':
+    if configuration['node_type'] == 'validator':
 
         if configuration['validator']['bonding']:
             steak = get_unbonded_steak()
@@ -88,7 +87,7 @@ def run(config, noupdate, firstrun):
                 # Also need to find out how long until the proposal expires and do an auto-vote right before
                 voting_alert()
 
-    elif configuration['node_type'] is 'sentry':
+    elif configuration['node_type'] == 'sentry':
 
         
         print("sentry")
