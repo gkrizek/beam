@@ -26,6 +26,9 @@ class http_server(SimpleHTTPRequestHandler):
 
 
 def run_server(port):
+    '''
+    TODO Need to handle if this can't start and the thread dies
+    '''
     httpd = HTTPServer(("", port), http_server)
     httpd.serve_forever()
 

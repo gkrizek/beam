@@ -4,13 +4,17 @@ import toml
 from sys import exit
 from .commands.commander import initialize
 from .commands.gaiad import check_gaiad, start_gaiad, get_unbonded_steak, bond_steak
-from .commands.network import get_local_ip, get_public_ip
+from .commands.network import get_local_ip, get_public_ip, check_connections
 from .commands.voting import get_new_votes, voting_alert
 from .commands.utils import get_moniker
+from .http import start_server
 from .utils import check_config, get_config, get_node
 
+# Constants
+CONN_WARN = 10
+CONN_ERR = 20
 
-def run(config, noupdate, firstrun):
+def run(config, noupdate, firstrun, port):
 
     node_config = os.path.expanduser('~/.beam/node.toml')
     beam_config = os.path.expanduser('~/.beam/config.toml')
@@ -54,6 +58,8 @@ def run(config, noupdate, firstrun):
     if firstrun and \
        configuration['gaiad']['enable'] and \
        configuration['commander']['enable']:
+            os.environ['BEAM_STATUS'] = '{"message":"Good to go!","code":200}'
+            start_server(port)
             click.echo("Getting gaiad config from Commander...")
             local_ip = node_configuration['local_ip']
             public_ip = node_configuration['public_ip']
@@ -61,6 +67,7 @@ def run(config, noupdate, firstrun):
             node_type = node_configuration['node_type']
             initialize(local_ip,public_ip,moniker,node_type)
             start_gaiad()
+
 
     gaiad_running = check_gaiad()
     if gaiad_running is False and \
@@ -88,8 +95,17 @@ def run(config, noupdate, firstrun):
                 voting_alert()
 
     elif configuration['node_type'] == 'sentry':
+        if configuration['sentry']['connections']:
+            connections = check_connections()
+            if connections > CONN_ERR and \
+               configuration['sentry']['suicide']:
+               click.echo("currently have %s number of connections. Requesting help..." %(connections))
+               # Tell commander about it
+               os.environ['BEAM_STATUS'] = '{"message":"Large number of connections. Possible DDoS","code":515}'
 
-        
-        print("sentry")
+            elif connections > CONN_WARN:
+                click.echo("currently have %s number of connections. Requesting help..." %(connections))
+                os.environ['BEAM_STATUS'] = '{"message":"Higher than normal connections","code":514}'
+
 
     return

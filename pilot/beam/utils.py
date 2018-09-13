@@ -31,6 +31,7 @@ def check_config():
     - port
     - validator-primary
     - validator-address
+    - sentry-connections
     '''
     beam_config = os.path.expanduser('~/.beam/config.toml')
     try:

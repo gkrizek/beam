@@ -13,3 +13,8 @@ def get_public_ip():
     #request = requests.get('https://ipinfo.io/ip')
     return "8.8.8.8"
     #return request.content
+
+
+
+def check_connections():
+    return 25

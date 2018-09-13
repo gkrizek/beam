@@ -40,13 +40,14 @@ For Validator servers,... figure out what to do about validators, but they will 
 Nodes know about each other by making a request directly to one another with the gaiad RPC endpoints. Commander is also always updating the template gaiad config so it's recent.
 # How do nodes know the ips of the others? should I keep an updated list of them on the server in the node.toml file? Should I just make a lambda call to request them?
 
-
+Need to add timestamps to logs
 
 # Unknowns
 
 - Validator Health Checks
 - How to do alerting. In lambda? On server? What service?
 - Probably need health checks for all sentry/validators.
+- Scaling up should be easy, but how do I scale down?
 
 ## Maybe what I can do for health checks is to have a list of nodes in S3 for the commander to access. Every X seconds, a Lambda function makes an HTTP request to all the nodes. If one doesn't repond, handle it appropriately. This would require creating an HTTP agent in the beam pilot.  Also, when a new server is spun up, part of initialization would be to tell Commander its IP address and it gets added to the node list. If a server doesn't respond, then terminate it, remove it from the list, and replace it.
 
