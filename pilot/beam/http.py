@@ -1,4 +1,6 @@
 from threading import Thread
+from thread import interrupt_main
+import click
 import os
 import json
 
@@ -26,12 +28,13 @@ class http_server(SimpleHTTPRequestHandler):
 
 
 def run_server(port):
-    '''
-    TODO Need to handle if this can't start and the thread dies
-    '''
-    httpd = HTTPServer(("", port), http_server)
-    httpd.serve_forever()
-
+    try:
+        httpd = HTTPServer(("", port), http_server)
+        httpd.serve_forever()
+    except Exception as e:
+        click.echo("")
+        click.secho("Error Starting Beam: %s" %(e), fg="red", bold=True)
+        interrupt_main()
 
 def start_server(port):
     thread = Thread(target=run_server, args=(port, ))
