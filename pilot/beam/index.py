@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 import click
 import time
+import os
 from sys import exit
 from .init import initialization
+from .http import start_server
 from .reset import reset_beam
 from .status import status_check
 from .start import run
@@ -48,6 +50,10 @@ def start(config, noupdate, port):
     click.echo("")
     click.echo("Starting Beam Pilot - %s" %(time.asctime(time.localtime(time.time()))))
     click.echo("")
+    
+    os.environ['BEAM_STATUS'] = '{"message":"Good to go!","code":200}'
+    start_server(port)
+    
     firstrun = True
     while True:
         run(config, noupdate, firstrun)

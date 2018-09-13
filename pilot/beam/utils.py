@@ -30,6 +30,7 @@ def check_config():
     missing additions:
     - port
     - validator-primary
+    - validator-address
     '''
     beam_config = os.path.expanduser('~/.beam/config.toml')
     try:
