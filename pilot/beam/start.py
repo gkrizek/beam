@@ -14,6 +14,7 @@ from .utils import check_config, get_config, get_node
 CONN_WARN = 10
 CONN_ERR = 20
 
+
 def run(config, noupdate, firstrun, port):
 
     node_config = os.path.expanduser('~/.beam/node.toml')

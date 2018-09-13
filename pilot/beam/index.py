@@ -50,6 +50,10 @@ def start(config, noupdate, port):
     click.echo("Starting Beam Pilot - %s" %(time.asctime(time.localtime(time.time()))))
     click.echo("")
     
+    from .commands.system import execute
+    test = execute(["ps", "ax"])
+    print(test)
+
     firstrun = True
     while True:
         run(config, noupdate, firstrun, port)

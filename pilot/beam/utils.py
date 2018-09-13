@@ -32,6 +32,7 @@ def check_config():
     - validator-primary
     - validator-address
     - sentry-connections
+    - alert_type
     '''
     beam_config = os.path.expanduser('~/.beam/config.toml')
     try:

@@ -5,12 +5,22 @@ from sys import exit
 
 
 def execute(command):
-    #execute commands
-    return
+    # Commands need to be sent in a Popen compatible way. Ex: ["ps", "aux"]
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if process.returncode is 0:
+        return {
+            "success": True,
+            "output": process.stdout
+        }
+    else:
+        print(process.stderr)
+        return {
+            "success": False,
+            "output": process.stderr
+        }
 
 
 def check_beam():
-    returnprocess = False
     s = subprocess.Popen(["ps", "ax"], stdout=subprocess.PIPE)
     for x in s.stdout:
       if re.search('(.*)beam(.*)start(.*)', x):

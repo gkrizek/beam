@@ -51,6 +51,8 @@ Need to add timestamps to logs
 
 ## Maybe what I can do for health checks is to have a list of nodes in S3 for the commander to access. Every X seconds, a Lambda function makes an HTTP request to all the nodes. If one doesn't repond, handle it appropriately. This would require creating an HTTP agent in the beam pilot.  Also, when a new server is spun up, part of initialization would be to tell Commander its IP address and it gets added to the node list. If a server doesn't respond, then terminate it, remove it from the list, and replace it.
 
+- For the HTTP Status Check, maybe we should write the metrics to a file every time beam runs. Then that http endpoint can return status info as well.
+- For Alerting, maybe allow two types of alerts, commander or local. If local, try to send messages somehow from the server. If commander, invoke the lambda function and alert from there. This will allow for much more alerting options, but still have basic alerting if you dont want to run commander.
 
 '''
 first check how many unbonded steaks you have... with `gaiacli account <your_cosmosaccaddr...>`
