@@ -24,38 +24,3 @@ The [Infrastructure directory](./infrastructure) contains a collection of [Terra
 #### Maintainer
 
 [Graham Krizek](https://github.com/gkrizek)
-
-
-```
-NOTES:
-
-The pilot command line tool can ran by itself (no commander lambda function) or with a connection to a commander lambda function.
-
-When a server starts up, it will first run `beam init` and the `beam start`. This will create a '~/.beam/node.toml' file and start beam. It will then check in to the commander lambda function (if enabled) and get it's gaiad config. The gaiad data directory should already by present because of a mounted EBS volume from a snapshot. Then it starts gaiad and monitors it.
-
-For Sentry servers, the only other time it communicate with the commander server is if it posts an event to it, such as a voting alert, ddos attach, etc.
-
-For Validator servers,... figure out what to do about validators, but they will have some sort of health check running on them. If the checks fail, we trigger beam to start the next secondary validator. This means that the validator beam programs will need to check into the commander function every X seconds to see if there is something to do.
-
-Nodes know about each other by making a request directly to one another with the gaiad RPC endpoints. Commander is also always updating the template gaiad config so it's recent.
-# How do nodes know the ips of the others? should I keep an updated list of them on the server in the node.toml file? Should I just make a lambda call to request them?
-
-Need to add timestamps to logs
-
-# Unknowns
-
-- Validator Health Checks
-- How to do alerting. In lambda? On server? What service?
-- Probably need health checks for all sentry/validators.
-- Scaling up should be easy, but how do I scale down?
-
-## Maybe what I can do for health checks is to have a list of nodes in S3 for the commander to access. Every X seconds, a Lambda function makes an HTTP request to all the nodes. If one doesn't repond, handle it appropriately. This would require creating an HTTP agent in the beam pilot.  Also, when a new server is spun up, part of initialization would be to tell Commander its IP address and it gets added to the node list. If a server doesn't respond, then terminate it, remove it from the list, and replace it.
-
-- For the HTTP Status Check, maybe we should write the metrics to a file every time beam runs. Then that http endpoint can return status info as well.
-- For Alerting, maybe allow two types of alerts, commander or local. If local, try to send messages somehow from the server. If commander, invoke the lambda function and alert from there. This will allow for much more alerting options, but still have basic alerting if you dont want to run commander.
-
-
-----
-
-15GB of data on a 30GB ebs volume - 17 min snapshot
-```
