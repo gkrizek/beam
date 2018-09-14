@@ -6,7 +6,7 @@ from sys import exit
 
 
 def announce_node(node_type):
-
+    # TODO: determine how I need to tell people about me. If i'm a validator I need to be in private_peers. can that happen in RPC?
     return {
         "success": True,
         "message": "all good"

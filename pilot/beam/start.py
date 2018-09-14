@@ -82,7 +82,7 @@ def run(config, noupdate, firstrun, port):
     if configuration['node_type'] == 'validator':
 
         if configuration['validator']['bonding']:
-            steak = get_unbonded_steak()
+            steak = get_unbonded_steak(configuration['validator']['address'])
             if steak > 0:
                 click.echo("There are %s unbonded steak. Bonding now..." %(steak))
                 bond_steak(steak)
