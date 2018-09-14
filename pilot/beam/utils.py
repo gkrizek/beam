@@ -9,21 +9,7 @@ def config_error(message):
     click.secho(message, fg="red", bold=True)
     click.echo("")
     exit(1)
-
-
-def is_boolen(key,value):
-    if type(value) is bool:
-        return
-    else:
-        config_error("Configuration Error: Expecting %s to be a boolen" %(key))
-
-
-def is_string(key,value):
-    if type(value) is str:
-        return
-    else:
-        config_error("Configuration Error: Expecting %s to be a string" %(key))
-
+    
 
 def check_config():
     '''
@@ -32,6 +18,7 @@ def check_config():
     - validator-primary
     - validator-address
     - sentry-connections
+    - sentry-public
     - alert_type
     '''
     beam_config = os.path.expanduser('~/.beam/config.toml')

@@ -66,7 +66,8 @@ def run(config, noupdate, firstrun, port):
             public_ip = node_configuration['public_ip']
             moniker = node_configuration['moniker']
             node_type = node_configuration['node_type']
-            initialize(local_ip,public_ip,moniker,node_type)
+            gaiad_dir = configuration['gaiad']['directory']
+            initialize(local_ip,public_ip,moniker,node_type,gaiad_dir)
             start_gaiad()
 
 

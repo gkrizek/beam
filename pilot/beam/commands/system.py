@@ -10,13 +10,12 @@ def execute(command):
     if process.returncode is 0:
         return {
             "success": True,
-            "output": process.stdout
+            "output": process.stdout.read()
         }
     else:
-        print(process.stderr)
         return {
             "success": False,
-            "output": process.stderr
+            "output": process.stdout.read()
         }
 
 

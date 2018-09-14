@@ -45,6 +45,9 @@ address = "abc1234basd"
 # Sentry specific options
 [sentry]
 
+# Specify if sentry is private or public
+public = true
+
 # Check how many open connections
 connections = true
 

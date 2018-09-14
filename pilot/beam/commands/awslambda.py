@@ -9,6 +9,7 @@ awslambda = boto3.client('lambda')
 def invoke_commander(payload):
     config = get_config()
     try:
+        # TODO: Finish function invocation
         commander_function = awslambda.invoke_function(
             Function=config['commander']['commander'],
             More="..."

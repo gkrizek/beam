@@ -61,4 +61,8 @@ then delegate to yourself with...
 
 gaiacli stake delegate --amount=10steak  --address-delegator=<your_cosmosaccaddr...>  --address-validator=<your_cosmosaccaddr...> --from=<your_monikor>  --chain-id=gaia-8001 --gas=20000000 --async=true
 '''
+
+----
+
+15GB of data on a 30GB ebs volume - 17 min snapshot
 ```
