@@ -1,6 +1,10 @@
+from hashlib import sha256
 
 
 def get_moniker(ip,type):
-    # What if the `config` option in config.toml is set to false. Then we don't set the moniker
-    # if validator, give different moniker
-    return 'a1b2c3d4'
+    if type == 'sentry':
+        sha = sha256(ip.encode('utf-8')).hexdigest()
+        return sha[:10]
+    elif type == 'validator':
+        # TODO need to handle validator moniker
+        return 'validator'

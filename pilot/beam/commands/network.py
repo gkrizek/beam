@@ -1,4 +1,6 @@
 import requests
+import re
+from .system import execute
 
 METADATA_URL = "http://169.254.169.254/latest/meta-data"
 
@@ -15,6 +17,11 @@ def get_public_ip():
     #return request.content
 
 
-
 def check_connections():
-    return 25
+    connections = 0
+    netstat = execute(["netstat", "-ant"])
+    for l in netstat['output'].splitlines():
+        is_syn = re.search(r'(.*)SYN(.*)', l)
+        if is_syn:
+            connections += 1
+    return connections

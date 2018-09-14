@@ -14,6 +14,7 @@ def announce_node(node_type):
 
 
 def get_gaiad_config(node_type):
+    # TODO: Need to set Moniker in config. We can either send moniker to the commander and use a jinja template, or we can just find/replace here
     config = invoke_commander({
         "action": "config_file",
         "type": node_type
