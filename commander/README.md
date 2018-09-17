@@ -3,7 +3,7 @@
 
 ### Allowed Actions
 
-- `start_healthcheck`
+- `healthcheck`
 - `config_file`
 - `list`
 - `report`
@@ -11,5 +11,4 @@
 **Required Environment Variables:**
 
 - COMMANDER_S3_BUCKET
-
-
+- 

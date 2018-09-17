@@ -1,5 +1,9 @@
+from ..s3 import GetFile
 
 
 def ConfigFile(body):
 
-    return 'config'
+    config_file = GetFile(
+        Key='config/gaiad.latest'
+    )
+    return config_file
