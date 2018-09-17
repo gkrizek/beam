@@ -17,7 +17,9 @@ def get_gaiad_config(node_type):
     # TODO: Need to set Moniker in config. We can either send moniker to the commander and use a jinja template, or we can just find/replace here
     config = invoke_commander({
         "action": "config_file",
-        "type": node_type
+        "body": {
+            "type": node_type
+        }
     })
     return config
 
@@ -25,7 +27,9 @@ def get_gaiad_config(node_type):
 def get_gaiad_nodes(node_type):
     nodes = invoke_commander({
         "action": "list",
-        "type": node_type
+        "body": {
+            "type": node_type
+        }
     })
     return nodes
 
@@ -34,7 +38,7 @@ def initialize(local_ip,public_ip,moniker,node_type,gaiad_dir):
     # Tell Commander about me
     report = invoke_commander({
         "action": "report",
-        "info": {
+        "body": {
             "local_ip": local_ip,
             "public_ip": public_ip,
             "moniker": moniker,
