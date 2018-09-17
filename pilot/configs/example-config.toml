@@ -51,8 +51,8 @@ public = true
 # Check how many open connections
 connections = true
 
-# Turn on/off self replacement if under DDoS attack
-suicide = true
+# Turn on/off Defense if under DDoS attack
+defense = true
 
 # Gaiad Specifc Options
 [gaiad]

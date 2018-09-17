@@ -50,8 +50,8 @@ def check_config():
         
     if node_type is 'sentry':
         try:
-            suicide = config['sentry']['suicide']
-            if type(suicide) is not bool:
+            defense = config['sentry']['defense']
+            if type(defense) is not bool:
                 config['force_key_error']
         except KeyError as e:
             config_error("Error: Configuration File is invalid. Check syntax and completeness.")
