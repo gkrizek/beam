@@ -1,8 +1,12 @@
 from time import sleep
 
-SLEEP_TIME = 3
 
 def HealthCheck(body):
+
+    try:
+        check_interval = os.environ['COMMANDER_CHECK_INTERAL']
+    except KeyError:
+        check_interval = 5
 
     while True:
 
@@ -17,4 +21,4 @@ def HealthCheck(body):
         else:
 
             # TODO: Run the checks
-            sleep(SLEEP_TIME)
+            sleep(check_interval)

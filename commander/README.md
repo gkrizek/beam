@@ -11,4 +11,4 @@
 **Required Environment Variables:**
 
 - COMMANDER_S3_BUCKET
-- 
+- COMMANDER_CHECK_INTERVAL (optional)
