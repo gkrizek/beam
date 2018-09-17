@@ -1,3 +1,7 @@
+from .action.configfile import ConfigFile
+from .action.healthcheck import HealthCheck
+from .action.list import List
+from .action.report import Report
 from .auth import CheckAuth
 
 
@@ -16,16 +20,20 @@ def Switch(action, headers, body):
 
     """Execute Function""""
 
-    if action == 'start_healthcheck':
-        return 'start_healthcheck'
-    elif action == 'config_file':
-        return 'config_file'
+    if action == 'config_file':
+        result = ConfigFile(body)
+        return result
+    elif action == 'healthcheck':
+        result = HealthCheck(body)
+        return result
     elif action == 'list':
-        return 'list'
+        result = List(body)
+        return result
     elif action == 'report':
-        return 'report'
+        result = Report(body)
+        return result
     else:
         return {
-            'statusCode': 200,
+            'statusCode': 404,
             'body': 'Unknown Command'
         }
