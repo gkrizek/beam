@@ -18,7 +18,7 @@ def Switch(action, headers, body):
                 'body': 'Access Denied'
             }
 
-    """Execute Function""""
+    """Execute Actions""""
 
     if action == 'config_file':
         result = ConfigFile(body)

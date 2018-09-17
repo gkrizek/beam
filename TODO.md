@@ -47,7 +47,7 @@ For Validator servers,... figure out what to do about validators, but they will 
 Nodes know about each other by making a request directly to one another with the gaiad RPC endpoints. Commander is also always updating the template gaiad config so it's recent.
 # How do nodes know the ips of the others? should I keep an updated list of them on the server in the node.toml file? Should I just make a lambda call to request them?
 
-*** I think instead of terminating the whole instance if it gets DDoSed, we should just change its elastic IP address. So we could stop gaiad, switch EIP, then start gaiad. Don't have to worry about size of the blockchain weighing us down.
+*** I think instead of terminating the whole instance if it gets DDoSed, we should just change its elastic IP address. So we could stop gaiad, switch EIP, then start gaiad. Don't have to worry about size of the blockchain weighing us down. We would still need to do regular backups of the blockchain for fast bootstrapping, but not as much of a requirement as perviously. 
 
 ---
 
