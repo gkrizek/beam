@@ -100,7 +100,7 @@ def run(config, noupdate, firstrun, port):
         if configuration['sentry']['connections']:
             connections = check_connections()
             if connections > CONN_ERR and \
-               configuration['sentry']['suicide']:
+               configuration['sentry']['defense']:
                click.echo("currently have %s number of connections. Requesting help..." %(connections))
                # Tell commander about it
                os.environ['BEAM_STATUS'] = '{"message":"Large number of connections. Possible DDoS","code":515}'
