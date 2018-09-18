@@ -4,6 +4,7 @@ import time
 import os
 from sys import exit
 from .init import initialization
+from .logging import Log
 from .reset import reset_beam
 from .status import status_check
 from .start import run
@@ -40,13 +41,13 @@ def start(config, noupdate, port):
     exists = config_exists()
     if not exists:
         click.echo("")
-        click.secho("Error: No configuration file found. (~/.beam/config.toml)", fg="red", bold=True)
+        click.echo("Error: No configuration file found. (~/.beam/config.toml)", fg="red", bold=True)
         click.echo("")
         click.echo("Either run `beam init` or create a configuration file maually.")
         click.echo("")
         exit(1)
     click.echo("")
-    click.echo("Starting Beam Pilot - %s" %(time.asctime(time.localtime(time.time()))))
+    Log("Starting Beam Pilot")
     click.echo("")
 
     firstrun = True
