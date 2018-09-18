@@ -2,11 +2,12 @@ import click
 import os
 import toml
 from sys import exit
+from .logging import Log
 
 
 def config_error(message):
     click.echo("")
-    click.secho(message, fg="red", bold=True)
+    Log(message, Color="red", Bold=True)
     click.echo("")
     exit(1)
     

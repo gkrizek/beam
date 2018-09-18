@@ -1,5 +1,6 @@
 from threading import Thread
 from thread import interrupt_main
+from .logging import Log
 import click
 import os
 import json
@@ -33,7 +34,7 @@ def run_server(port):
         httpd.serve_forever()
     except Exception as e:
         click.echo("")
-        click.secho("Error Starting Beam: %s" %(e), fg="red", bold=True)
+        Log("Error Starting Beam: %s" % (e), fg="red", bold=True)
         interrupt_main()
 
 def start_server(port):

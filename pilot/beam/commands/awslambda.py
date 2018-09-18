@@ -1,6 +1,7 @@
 import boto3
 import click
 from ..utils import get_config
+from ..logging import Log
 from sys import exit
 
 awslambda = boto3.client('lambda')
@@ -17,7 +18,7 @@ def invoke_commander(payload):
         return commander_function
     except Exception as e:
         click.echo("")
-        click.secho("There was a problem: %s" %(e), fg="red", bold=True)
+        Log("There was a problem: %s" % (e), Color="red", Bold=True)
         click.echo("")
         exit(1)
         return

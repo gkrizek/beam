@@ -2,6 +2,7 @@ import click
 import os
 from .awslambda import invoke_commander
 from .gaiad import start_gaiad
+from ..logging import Log
 from sys import exit
 
 
@@ -45,7 +46,7 @@ def initialize(local_ip,public_ip,moniker,node_type,gaiad_dir):
             "type": node_type
         }
     })
-    click.echo(report)
+    Log(report)
 
     # TODO: What about the node.json and other files in ~/.gaiad/config
     gaiad_config = get_gaiad_config(node_type)
@@ -58,15 +59,15 @@ def initialize(local_ip,public_ip,moniker,node_type,gaiad_dir):
         with open(gaiad_config_file, 'w') as f:
             f.write(gaiad_config)
     except OSError as e:
-        click.secho("Error writing gaiad config file: %s - %s." %(e.filename, e.strerror), fg="red", bold=True)
+        Log("Error writing gaiad config file: %s - %s." %(e.filename, e.strerror), Color="red", Bold=True)
         click.echo("")
         exit(1)
 
     # Post to all nodes via RPC
     announce = announce_node(node_type)
-    click.echo(announce)
+    Log(announce)
 
     # start gaiad
     exec_gaiad = start_gaiad()
-    click.echo(exec_gaiad)
+    Log(exec_gaiad)
     return "initialized"

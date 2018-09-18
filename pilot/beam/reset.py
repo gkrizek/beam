@@ -1,4 +1,5 @@
 import os
+from .logging import Log
 
 
 def reset_beam():
@@ -7,7 +8,6 @@ def reset_beam():
         try:
             os.remove(node_config)
         except OSError as e:
-            click.secho("Error: %s - %s." % (e.filename, e.strerror), fg="red", bold=True)
-            click.echo("")
+            Log("Error: %s - %s." % (e.filename, e.strerror), fg="red", bold=True)
             exit(1)
     return

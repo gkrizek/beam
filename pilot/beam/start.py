@@ -7,6 +7,7 @@ from .commands.gaiad import check_gaiad, start_gaiad, get_unbonded_steak, bond_s
 from .commands.network import get_local_ip, get_public_ip, check_connections
 from .commands.voting import get_new_votes, voting_alert
 from .commands.utils import get_moniker
+from .logging import Log
 from .http import start_server
 from .utils import check_config, get_config, get_node
 
@@ -22,19 +23,19 @@ def run(config, noupdate, firstrun, port):
     check_config()
     configuration = get_config()
     if not os.path.exists(node_config):
-        click.echo("No node file found. Creating one now...")
+        Log("No node file found. Creating one now...")
         click.echo("")
         # gather necessary information
         config_raw = open(beam_config, "r").read()
         config_file = toml.loads(config_raw)
         node_type = config_file['node_type']
-        click.echo("Node Type: %s" %(node_type))
+        Log("Node Type: %s" %(node_type))
         local_ip = get_local_ip()
-        click.echo("Local IP: %s" %(local_ip))
+        Log("Local IP: %s" % (local_ip))
         public_ip = get_public_ip()
-        click.echo("Public IP: %s" %(public_ip))
+        Log("Public IP: %s" % (public_ip))
         moniker = get_moniker(local_ip,node_type)
-        click.echo("Gaiad Moniker: %s" %(moniker))
+        Log("Gaiad Moniker: %s" % (moniker))
 
         data = {}
         data['node_type'] = node_type
@@ -47,12 +48,12 @@ def run(config, noupdate, firstrun, port):
             with open(node_config, 'w') as f:
                 f.write(formatted_data)
         except OSError as e:
-            click.secho("Error writing node file: %s - %s." % (e.filename, e.strerror), fg="red", bold=True)
+            Log("Error writing node file: %s - %s." % (e.filename, e.strerror), Color="red", Bold=True)
             click.echo("")
             exit(1)
 
         click.echo("")
-        click.echo("Node file successfully created. Continuing...")
+        Log("Node file successfully created. Continuing...")
         click.echo("")
 
     node_configuration = get_node()
@@ -61,7 +62,7 @@ def run(config, noupdate, firstrun, port):
        configuration['commander']['enable']:
             os.environ['BEAM_STATUS'] = '{"message":"Good to go!","code":200}'
             start_server(port)
-            click.echo("Getting gaiad config from Commander...")
+            Log("Getting gaiad config from Commander...")
             local_ip = node_configuration['local_ip']
             public_ip = node_configuration['public_ip']
             moniker = node_configuration['moniker']
@@ -76,7 +77,7 @@ def run(config, noupdate, firstrun, port):
        configuration['gaiad']['enable']:
        # TODO: Do I need to alert that it's not running?
        # Monitor consistent failures to start
-        click.echo("gaiad appears to be stopped. Starting gaiad...")
+        Log("gaiad appears to be stopped. Starting gaiad...")
         start_gaiad()
 
     if configuration['node_type'] == 'validator':
@@ -84,13 +85,13 @@ def run(config, noupdate, firstrun, port):
         if configuration['validator']['bonding']:
             steak = get_unbonded_steak(configuration['validator']['address'])
             if steak > 0:
-                click.echo("There are %s unbonded steak. Bonding now..." %(steak))
+                Log("There are %s unbonded steak. Bonding now..." % (steak))
                 bond_steak(steak)
 
         if configuration['validator']['voting']:
             votes = get_new_votes()
             if votes['new'] and configuration['alerting']:
-                click.echo("New votes found. Alerting...")
+                Log("New votes found. Alerting...")
                 # TODO: Need to figure out a way to only notify of the proposal once.
                 # Don't alert every time this runs.
                 # Also need to find out how long until the proposal expires and do an auto-vote right before
@@ -101,12 +102,12 @@ def run(config, noupdate, firstrun, port):
             connections = check_connections()
             if connections > CONN_ERR and \
                configuration['sentry']['defense']:
-               click.echo("currently have %s number of connections. Requesting help..." %(connections))
+               Log("currently have %s number of connections. Requesting help..." %(connections))
                # Tell commander about it
                os.environ['BEAM_STATUS'] = '{"message":"Large number of connections. Possible DDoS","code":515}'
 
             elif connections > CONN_WARN:
-                click.echo("currently have %s number of connections. Requesting help..." %(connections))
+                Log("currently have %s number of connections. Requesting help..." %(connections))
                 os.environ['BEAM_STATUS'] = '{"message":"Higher than normal connections","code":514}'
 
 
