@@ -7,5 +7,5 @@ def GetSentryIps():
 
 
 def GetValidatorIps():
-    hosts = GetFile('nodes/sentrys.latest')
+    hosts = GetFile('nodes/validators.latest')
     return hosts['body']

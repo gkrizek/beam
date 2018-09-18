@@ -24,3 +24,12 @@ def GetFile(Key):
         'statusCode': 200,
         'body': s3_file
     }
+
+
+def UploadFromContent(Bucket, Key, Content):
+    result = s3.put_object(
+        Bucket=Bucket,
+        Key=Key,
+        Body=Content
+    )
+    return result
