@@ -37,8 +37,8 @@ def get_gaiad_nodes(node_type):
 
 def initialize(local_ip,public_ip,moniker,node_type,gaiad_dir):
     # Tell Commander about me
-    report = invoke_commander({
-        "action": "report",
+    check_in = invoke_commander({
+        "action": "check_in",
         "body": {
             "local_ip": local_ip,
             "public_ip": public_ip,
@@ -46,7 +46,7 @@ def initialize(local_ip,public_ip,moniker,node_type,gaiad_dir):
             "type": node_type
         }
     })
-    Log(report)
+    Log(check_in)
 
     # TODO: What about the node.json and other files in ~/.gaiad/config
     gaiad_config = get_gaiad_config(node_type)

@@ -29,8 +29,8 @@ def Switch(action, headers, body, context):
     elif action == 'list':
         result = List(body)
         return result
-    elif action == 'report':
-        result = Report(body)
+    elif action == 'check_in':
+        result = CheckIn(body)
         return result
     else:
         return {

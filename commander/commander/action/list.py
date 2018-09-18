@@ -2,10 +2,12 @@ from ..s3 import GetFile
 
 def List(body):
 
-    # TODO: Maybe support different types here. 
-    # Like `list/sentry.latest`, `list/validator.latest`. 
-    # Or we can make `node.latest` a toml file and have sections
+    if body['type'] == 'sentrys':
+        key = 'list/sentrys.latest'
+    else if body['type'] == 'validators':
+        key = 'list/validators.latest'
+
     list_file = GetFile(
-        Key='list/node.latest'
+        Key=key
     )
-    return list_file
+    return list_file['body']
