@@ -42,7 +42,7 @@ def start(config, noupdate, port):
         click.echo("")
         click.secho("Error: No configuration file found. (~/.beam/config.toml)", fg="red", bold=True)
         click.echo("")
-        click.echo("Either create a configuration file or run `beam init`")
+        click.echo("Either run `beam init` or create a configuration file maually.")
         click.echo("")
         exit(1)
     click.echo("")
