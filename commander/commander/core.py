@@ -5,7 +5,7 @@ from .action.report import Report
 from .auth import CheckAuth
 
 
-def Switch(action, headers, body):
+def Switch(action, headers, body, context):
 
     """Authorization"""
     # If headers are sent, check Authorization
@@ -24,7 +24,7 @@ def Switch(action, headers, body):
         result = ConfigFile(body)
         return result
     elif action == 'healthcheck':
-        result = HealthCheck(body)
+        result = HealthCheck(body, context)
         return result
     elif action == 'list':
         result = List(body)

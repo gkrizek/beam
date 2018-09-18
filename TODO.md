@@ -16,6 +16,8 @@
 
 - Faster bootstrapping
 
+- Support Relays
+
 - Need to add timestamps to logs ( Maybe need to create a single logging function and just call it always.)
 
 - Scaling up should be easy, but how do I scale down?

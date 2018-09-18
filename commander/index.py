@@ -1,4 +1,4 @@
-from .core import Switch
+from .commander.core import Switch
 
 
 def handler(event, context):
@@ -17,7 +17,7 @@ def handler(event, context):
             headers = None
             body = event['body']
 
-        result = Switch(action, headers, body)
+        result = Switch(action, headers, body, context)
         return result
     else:
         return {
