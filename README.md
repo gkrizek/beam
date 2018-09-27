@@ -1,4 +1,4 @@
-![beam-logo.png](beam-logo.png)
+![beam-logo.png](files/beam-logo.png)
 
 Beam is aimed to be a full-service management tool for running a [Cosmos](https://cosmos.network) Validator. Beam enables you to run a highly available and secure Validator behind a dynamic set of Sentrys. The Beam project comes in two pieces, Beam Pilot and Beam Commander. Beam Pilot is a tool to be installed on your servers, while Beam Commander is a Lambda Function that communicates with all the Pilots. Beam is designed to handle all the needs of running a dynamic Validator architecure without manual processes.
 
@@ -49,7 +49,7 @@ The [Infrastructure directory](./infrastructure) contains a collection of [Terra
 
 ### Architecture Diagram
 
-![beam-arch.png](beam-arch.png)
+![beam-arch.png](files/beam-arch.png)
 
 
 #### Maintainer
