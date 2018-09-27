@@ -75,7 +75,7 @@ Must be either `commander` or `local`. How to send out the alerts.
 Any open port. This is the port the Commander uses to check on the health of the Pilot
 
 
-_Commander Section_
+**_Commander Section_**
 
 **`enable`:**
 
@@ -90,7 +90,7 @@ The name of the Lambda function for your Commander
 The name of the S3 Bucket for your Commander
 
 
-_Validator Section_
+**_Validator Section_**
 
 **`primary`:**
 
@@ -109,7 +109,7 @@ True/False to turn on or off automatic bonding of steak
 Your Validator's public Comsos Address
 
 
-_Sentry Section_
+**_Sentry Section_**
 
 **`public`:**
 
@@ -124,7 +124,7 @@ True/False to turn on or off checking of connections for DDoS mitigation
 True/False to turn on or off taking action if a DDoS attack is suspected
 
 
-_Gaiad Section_
+**_Gaiad Section_**
 
 **`enable`:**
 
@@ -133,3 +133,27 @@ True/False to turn on or off Pilot controlling your gaiad install and service
 **`directory`:**
 
 Your `gaiad` directory. Default is `~/.gaiad`
+
+
+### CLI Options
+
+```
+$ beam
+Usage: beam [OPTIONS] COMMAND [ARGS]...
+
+   _ )  __|    \     \  |    _ \ _ _|  |      _ \ __ __|
+   _ \  _|    _ \   |\/ |    __/   |   |     (   |   |
+  ___/ ___| _/  _\ _|  _|   _|   ___| ____| \___/   _|
+
+  Beam Pilot - Cosmos Infrastructure Manager
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  init     initialize
+  reset    reset the Beam Pilot node
+  start    start the agent
+  status   check agent status
+  version  check agent version
+```
