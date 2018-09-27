@@ -16,6 +16,7 @@ Examples of actions are:
 - Auto-Voting
 - Change gaiad configuration file
 - Ask the Commander for assistance if getting overwhelmed
+- Primary/Secondary Validator servers
 
 _Pilot can be ran with or without a Commander, however a lot of features are lost without a Commander._
 

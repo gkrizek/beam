@@ -11,6 +11,7 @@ Beam Pilot is a CLI Application that controls the gaiad service on a [Cosmos](ht
 - Change gaiad configuration file
 - Ask the Commander for assistance if getting overwhelmed
 - DDoS Mitigation
+- Primary/Secondary Validator Servers
 
 
 ### Install
@@ -47,3 +48,88 @@ Pilot will frequently query OS level stats to make sure it's not being overwhelm
 **DDoS Mitigation**
 
 Pilot will also query the amount of connections and attempted connections to the server. If we start to reach higher than normal connections, then Pilot will alert the Commander about it. The Commander will then take defensive action and change the Public IP Address of the Sentry Node to mitigate a potential DDoS attack.
+
+**Primary/Secondary Validator Servers**
+
+Because Pilot is running health checks on the server and on gaiad, we are able to tell if a Validator isn't online or behaving properly. This allows us to failover to a secondary Validator in the event that your primary server fails. If Commander sees the primary Validator go offline, it signals to the secondary Validator to get a new gaiad config and restart gaiad. This will move everything in to place for your secondary server to start Validating while you fix the other. This is also very helpful for software upgrades and maintenance. You can easily upgrade one server, then failover and upgrade the other.
+
+
+### Configuration File
+
+Beam Pilot uses a TOML file to get its configuration. The default place for this file is `~/.beam/config.toml`. This file will have everything you need to configure Pilot and turn features on or off. [Here is an example config file](configs/example-config.toml). Below are the descriptions of each value and their possible options.
+
+**`node_type`:**
+
+Must be either `validator` or `sentry`
+
+**`alerting`:**
+
+True/False to turn on or off alerts.
+
+**`alert_type`:**
+
+Must be either `commander` or `local`. How to send out the alerts.
+
+**`port`:**
+
+Any open port. This is the port the Commander uses to check on the health of the Pilot
+
+
+_Commander Section_
+
+**`enable`:**
+
+True/False to turn on or off the Commander integration
+
+**`commander`:**
+
+The name of the Lambda function for your Commander
+
+**`bucket`:**
+
+The name of the S3 Bucket for your Commander
+
+
+_Validator Section_
+
+**`primary`:**
+
+True/False to tell Commander if this Validator is primary or secondary
+
+**`voting`:**
+
+True/False to turn on or off automatic voting
+
+**`bonding`:**
+
+True/False to turn on or off automatic bonding of steak
+
+**`address`:**
+
+Your Validator's public Comsos Address
+
+
+_Sentry Section_
+
+**`public`:**
+
+True/False to tell Commander if Sentry is private or public
+
+**`connections`:**
+
+True/False to turn on or off checking of connections for DDoS mitigation
+
+**`defense`:**
+
+True/False to turn on or off taking action if a DDoS attack is suspected
+
+
+_Gaiad Section_
+
+**`enable`:**
+
+True/False to turn on or off Pilot controlling your gaiad install and service
+
+**`directory`:**
+
+Your `gaiad` directory. Default is `~/.gaiad`
