@@ -56,4 +56,7 @@ Nodes know about each other by making a request directly to one another with the
 * 15GB of data on a 30GB ebs volume - 17 min snapshot
 
 * Need to test running a full node in a private subnet and getting internet through NAT. Put a fake public ip in the config
+
+yes you can run gaiacli gov query-proposals to list all proposals, and use gaiacli gov query-proposal --proposal-id=<proposal_id> to view all details of a specific proposal.
+
 ```
