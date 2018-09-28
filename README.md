@@ -1,6 +1,6 @@
 ![beam-logo.png](files/beam-logo.png)
 
-_Beam is being created as part of the [HackAtom3 Hackathon](https://blog.cosmos.network/announcement-hackatom3-is-live-83c3492a45e5) and is still a Work in Progress._
+_Beam is being created as part of the [HackAtom3 Hackathon](https://blog.cosmos.network/announcement-hackatom3-is-live-83c3492a45e5). Therefore it is still a Work in Progress and not functional at this time._
 
 Beam is aimed to be a full-service management tool for running a [Cosmos](https://cosmos.network) Validator. Beam enables you to run a highly available and secure Validator behind a dynamic set of Sentrys. The Beam project comes in two pieces, Beam Pilot and Beam Commander. Beam Pilot is a tool to be installed on your servers, while Beam Commander is a Lambda Function that communicates with all the Pilots. Beam is designed to handle all the needs of running a dynamic Validator architecure without manual processes.
 
