@@ -34,15 +34,10 @@ Commander keeps a list of all the nodes in your architecture and what their purp
 Every Pilot server has an HTTP server running on it displaying its health status. Since Commander keeps a list of all nodes, we frequently check on the health status of all servers. If there is a problem, Commander will handle it in the appropriate way.
 
 
+## Usage
 
-### Allowed Actions
+**Environment Variables:**
 
-- `healthcheck`
-- `config_file`
-- `list`
-- `report`
+- COMMANDER_S3_BUCKET - `name of S3 Bucket for Commander to use`
+- COMMANDER_CHECK_INTERVAL (optional) - `Amount of seconds to pause inbetween health checks`
 
-**Required Environment Variables:**
-
-- COMMANDER_S3_BUCKET
-- COMMANDER_CHECK_INTERVAL (optional)
