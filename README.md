@@ -6,8 +6,18 @@ Beam is aimed to be a full-service management tool for running a [Cosmos](https:
 
 _While Pilot can be installed on any server, Commander is written to only be ran in AWS Lambda. Therefore, there is a requirement that this tool only be ran in [AWS](https://aws.amazon.com)._
 
+## Highlights:
 
-## Beam Pilot
+- Primary/Secondary Validator with automatic failover
+- DDoS Protection via automatic IP changes
+- Dynamic Gaiad Configuration Management
+- Auto-Bonding of Steak
+- Governance Proposal Alerts
+- Auto-Voting based on timed thresholds
+- Infrastructure Health Checks
+
+
+### Beam Pilot
 
 Pilot is a tool that installs onto your Sentry and Validator servers. It can be used to control the server, as well as talk to the Commander. The Pilot will gather information from gaiad, the server, and the Cosmos Network. Then it will act on that information based on what is appropriate. 
 
@@ -25,7 +35,7 @@ _Pilot can be ran with or without a Commander, however a lot of features are los
 See the [Pilot directory](./pilot) for more information.
 
 
-## Beam Commander
+### Beam Commander
 
 Commander is a Lambda function that controls and talks to all of the Pilots. The Commander runs a check at a given interval to check on all connected Pilots. If a Pilot has something that needs to be done, the Commander takes will execute that action. If a Pilot fails health checks, the Commander will replace it. The Commander will also generate dynamic gaiad configuration files for the Pilots to use so all servers are up to date.
 
@@ -40,12 +50,12 @@ Examples of actions are:
 See the [Commander directory](./commander) for more information.
 
 
-## Beam Infrastructure
+### Beam Infrastructure
 
 The [Infrastructure directory](./infrastructure) contains a collection of [Terraform](https://terraform.io) templates to be used as examples on how to create a compatible Beam architecture.
 
 
-### Architecture Diagram
+#### Architecture Diagram
 
 ![beam-arch.png](files/beam-arch.png)
 
