@@ -16,6 +16,11 @@ _While Pilot can be installed on any server, Commander is written to only be ran
 - Auto-Voting based on timed thresholds
 - Infrastructure Health Checks
 
+**How It Works**
+
+Beam Pilot is installed on all servers, Validators and Sentrys. Beam Pilot is running constantly and it will manage your gaiad service for you. Pilot will bootstrap your gaiad config by asking Commander for the config. Commander keeps a running list of nodes and will constantly update it's template gaiad config. Pilot checks the status on gaiad, network, server health, and more. If Pilot detects a change that requires action, it takes the proper action. For example, if Pilot notices that you have new Steak on your Validator address that isn't bonded yet, it will bond the Steak for you. It can also monitor for new governance proposals and alert you if there is a new one. Pilot puts most of these stats into an HTTP endpoint that is queryable from the Commander. The Commander is a Lambda function that runs at a given interval to monitor all servers. If it sees a server is offline, it will failover to a secondary (for validators) or terminate the instance for replacement (for sentrys). Commander is able to interact with administrators via external APIs as well. This enables things like Alert notifications, Sending in votes from Slack/Telegram, server edits, etc. When Commander queries Pilots it is able to act on their responses. For example, if a Sentry is starting to get overwhelmed, Commander will stop gaiad, change its Public IP (and gaiad config), then start gaiad. This is a method of defense against unwanted connections.
+
+Beam is made to bring automation into all aspects for running a Cosmos Validator. Through automation, Validators are easier to operated and more stable.
 
 ### Beam Pilot
 
