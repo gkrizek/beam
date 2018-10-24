@@ -23,7 +23,7 @@ When the Pilot node_type is a Validator, Pilot is constantly checking an endpoin
 
 **Change Public IP**
 
-Commander is designed to be run in AWS along with your Sentrys. Because Sentrys are EC2 instances, they can have Elastic IP Addresses. When a Pilot server signals to the Commander that it is being overwhelmed (possibly from DDoS), the Commander will replace it's public IP with a new one. This will affectively stop the attack and allow the Sentry to restablish connections with good nodes on the network.
+Commander is designed to be run in AWS along with your Sentrys. Because Sentrys are EC2 instances, they can have Elastic IP Addresses. When a Pilot server signals to the Commander that it is being overwhelmed (possibly from DDoS), the Commander will replace its public IP with a new one. This will affectively stop the attack and allow the Sentry to reestablish connections with good nodes on the network.
 
 **Dynamic gaiad config**
 
